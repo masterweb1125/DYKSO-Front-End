@@ -1,83 +1,46 @@
 import React from 'react';
-import styled from 'styled-components';
 import capture from '../assets/capture.png';
+import "bootstrap/dist/css/bootstrap.min.css"; 
+import Header from "../components/header";
+import Footer from "../components/footer";
 
 const Main = () => {
 
     return (
-      <Container>
-        <SubContainer>
-          <MainContainer href="/buy">
-            <span>I am here to</span>
-            <span>buy / search for something</span>
-          </MainContainer>
-          <MainContainer href="/sell">
-            <span>I am here to</span>
-            <span>sell / request / post something</span>
-          </MainContainer>
-        </SubContainer>
-        <SubContainer>
-          <MainContainer href="/list">
-            <span>Not ready for anything just yet?</span>
-            <span>Click here to see what others are</span>
-            <span>selling or requesting opr have</span>
-            <span>posted in your area</span>
-          </MainContainer>
-          <MainContainer href="/capture">
-            <img src={capture} alt='logo'/>
-            <span>Capture and post</span>
-          </MainContainer>
-        </SubContainer>
-      </Container>
+      <div className="container-fluid h-100" style={{ width: "100%", background: "#BBBBBB" }}>
+        <div className="row bg-white" style={{ height: "10vh" }}>
+          <Header />
+        </div>
+        <div className="row" style={{ height: "70vh" }}>
+          <div className="col-12 col-md-6 d-flex flex-column justify-content-center bg-light h-100">
+            <div className="d-flex align-items-center flex-grow-1 main-con mt-4" onClick={() => window.location.href = '/buy'}>
+              <span>I am here to</span>
+              <span>buy / search for something</span>
+            </div>
+            <div className="d-flex align-items-center flex-grow-1 main-con mb-4 mt-4" onClick={() => window.location.href = '/list'}>
+              <span>Not ready for anything just yet?</span>
+              <span>Click here to see what others are</span>
+              <span>selling or requesting or have</span>
+              <span>posted in your area</span>
+            </div>
+          </div>
+          <div className="col-12 col-md-6 d-flex flex-column justify-content-center bg-light h-100">
+            <div className="d-flex align-items-center flex-grow-1 main-con mt-4" onClick={() => window.location.href = '/sell'}>
+              <span>I am here to</span>
+              <span>sell / request / post something</span>
+            </div>
+            <div className="d-flex align-items-center flex-grow-1 main-con mb-4 mt-4" onClick={() => window.location.href = '/capture'}>
+              <img src={capture} alt='capture'/>
+              <span>Capture and post</span>
+            </div>
+          </div>
+        </div>
+        <div className="row bg-white" style={{ height: "20vh" }}>
+          <Footer />
+        </div>
+      </div>
     );
   };
 
-  const Container = styled.div`
-  background: #EEEEEE;
-  width: 90%;
-  height: 90vh;
-  padding:  1% 1% 1% 1%;
-  display: flex;
-  flex-direction: column;
-  margin: auto;
-`;
-
-const SubContainer = styled.div`
-  width: 90%;
-  height: 40vh;
-  padding:  1% 1% 1% 1%;
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  margin: auto;
-  justify-content: space-between;
-`;
-
-const MainContainer = styled.a`
-  width: 48%;
-  height: 40vh;
-  font-size: 30px;
-  background: #FFFFFF;
-  border-radius: 8px;
-  text-decoration: none;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  margin: auto;
-  justify-content: center;
-  white-space: pre-line;
-
-  &:hover {
-    background-color: #EEFFEE;
-    border-radius: 6px;
-    cursor: pointer;
-  }
-
-  span {
-    color: #000000;
-    font-weight: bold;
-  }
-
-`;
   
   export default Main;

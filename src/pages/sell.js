@@ -1,11 +1,67 @@
 import React from 'react';
+import Header from "../components/header";
+import Footer from "../components/footer";
 import styled from 'styled-components';
+import "../App.css";
 
-const Container = styled.div`
+const Sell = () => {
+
+    const handleFileChange = (e) => {
+      const selectedFile = e.target.files[0];
+      console.log('Selected File:', selectedFile);
+    };
+
+    return (
+    <div className="container-fluid h-100" style={{ width: "100vw" }}>
+        <div className="row" style={{ height: "10vh" }}>
+          <Header />
+        </div>
+        <div className="row" style={{ height: "70vh" }}>
+          <Container>
+            <MainContainer>
+              <SearchContainer>
+                <SearchInput type="text" className='custom-font' placeholder="Type here what you want to sell / request / post. Required" />
+                <LocationInput type="text" className='custom-font' placeholder="Enter zip code" />
+                <RoundedButton>Find my location</RoundedButton>
+              </SearchContainer>
+              <AddInfoContainer>
+                <AddInfoTitle>Additional Information</AddInfoTitle>
+                <MultiLineTextInput
+                  id="TextArea"
+                  placeholder="Enter here any additional information you want to share"
+                  onChange={(e) => console.log(e.target.value)}
+                />
+              </AddInfoContainer>
+              <AttachContainer>
+                <AddInfoTitle>
+                  Attachment
+                </AddInfoTitle>
+                <FileInputWrapper>
+                  <StyledFileInput
+                    type="file"
+                    id="fileInput"
+                    onChange={handleFileChange}
+                  />
+                  <FileInputLabel htmlFor="fileInput">Drag & Drop or Browse</FileInputLabel>
+                </FileInputWrapper>
+              </AttachContainer>
+              <ButtonContainer>
+                <PostRoundedButton href="/login">Post</PostRoundedButton>
+                <CancelRoundedButton href="/">Cancel</CancelRoundedButton>
+              </ButtonContainer>
+            </MainContainer>
+          </Container>
+        </div>
+        <div className="row" style={{ height: "20vh" }}>
+          <Footer />
+        </div>
+    </div>
+    );
+  };
+
+  const Container = styled.div`
   display: flex;
   flex-direction: column;
-  width: 90%;
-  height: 100vh;
   font-size: 30px;
   background: #FFFFFF;
   border-radius: 8px;
@@ -16,7 +72,6 @@ const Container = styled.div`
 `; 
 
 const MainContainer = styled.div`
-    height: 80vh;
     width: 90%;
     background: #FFFFFF;
     font-size: 40px;
@@ -28,7 +83,6 @@ const MainContainer = styled.div`
 const SearchContainer = styled.div`
   margin-top: 50px;
   width: 100%;
-  height: 10vh;
   display: flex;
   flex-direction: row;
   justify-content: space-between;
@@ -36,7 +90,6 @@ const SearchContainer = styled.div`
 
 const SearchInput = styled.input`
   width: 40vw;
-  height: 5vh;
   padding-left: 10px;
   border: 1px solid #ccc;
   border-radius: 6px;
@@ -48,7 +101,6 @@ const SearchInput = styled.input`
 
 const LocationInput = styled.input`
   width: 15vw;
-  height: 5vh;
   margin-left: 20px;
   padding-left: 10px;
   border: 1px solid #ccc;
@@ -68,10 +120,10 @@ const RoundedButton = styled.button`
   width: 8vw;
   height: 5vh;
   cursor: pointer;
-  background-color: #fcc017;
+  background-color: #03A89E;
   color: #000;
   &:hover {
-    background-color: #eebb00;
+    background-color: #03A89E;
   }
 `;
 
@@ -87,10 +139,10 @@ const PostRoundedButton = styled.a`
   align-items: center;
   justify-content: center;
   cursor: pointer;
-  background-color: #fcc017;
+  background-color: #03A89E;
   color: #000;
   &:hover {
-    background-color: #eebb00;
+    background-color: #03A89E;
   }
 `;
 
@@ -116,14 +168,12 @@ const CancelRoundedButton = styled.a`
 const AddInfoContainer = styled.div`
   margin-top: 50px;
   width: 100%;
-  height: 30vh;
   display: flex;
   flex-direction: column;
 `;
 
 const AddInfoTitle = styled.div`
   width: 10vw;
-  height: 5vh;
   flex-direction: column;
   font-size: 12px;
   font-weight: 400;
@@ -146,7 +196,6 @@ const MultiLineTextInput = styled.textarea`
 const AttachContainer = styled.div`
   margin-top: 50px;
   width: 100%;
-  height: 15vh;
   display: flex;
   flex-direction: column;
 `;
@@ -154,7 +203,6 @@ const AttachContainer = styled.div`
 const ButtonContainer = styled.div`
   margin-top: 50px;
   width: 100%;
-  height: 15vh;
   display: flex;
   flex-direction: row-reverse;
 `;
@@ -174,57 +222,12 @@ const FileInputLabel = styled.label`
   border-radius: 8px;
   font-size: 14px;
   cursor: pointer;
-  border: 1px dashed #fcc017;
+  border: 1px dashed #03A89E;
   &:hover {
-    background-color: #fcc017;
+    background-color: #03A89E;
   }
 `;
 
-
-const Sell = () => {
-
-    const handleFileChange = (e) => {
-      const selectedFile = e.target.files[0];
-      console.log('Selected File:', selectedFile);
-    };
-
-    return (
-      <Container>
-        <MainContainer>
-          <SearchContainer>
-            <SearchInput type="text" placeholder="Type here what you want to sell / request / post. Required" />
-            <LocationInput type="text" placeholder="Enter zip code" />
-            <RoundedButton>Find my location</RoundedButton>
-          </SearchContainer>
-          <AddInfoContainer>
-            <AddInfoTitle>Additional Information</AddInfoTitle>
-            <MultiLineTextInput
-              id="TextArea"
-              placeholder="Enter here any additional information you want to share"
-              onChange={(e) => console.log(e.target.value)}
-            />
-          </AddInfoContainer>
-          <AttachContainer>
-            <AddInfoTitle>
-              Attachment
-            </AddInfoTitle>
-            <FileInputWrapper>
-              <StyledFileInput
-                type="file"
-                id="fileInput"
-                onChange={handleFileChange}
-              />
-              <FileInputLabel htmlFor="fileInput">Drag & Drop or Browse</FileInputLabel>
-            </FileInputWrapper>
-          </AttachContainer>
-          <ButtonContainer>
-            <PostRoundedButton href="/login">Post</PostRoundedButton>
-            <CancelRoundedButton href="/">Cancel</CancelRoundedButton>
-          </ButtonContainer>
-        </MainContainer>
-      </Container>
-    );
-  };
   
   export default Sell;
 

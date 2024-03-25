@@ -1,4 +1,6 @@
 import styled from 'styled-components';
+import "../App.css";
+
 
 const Container = styled.div`
   display: flex;
@@ -94,10 +96,10 @@ const RoundedButton = styled.button`
     width: 20vw;
     height: 5vh;
     cursor: pointer;
-    background-color: #fcc017;
+    background-color: #03A89E;
     color: #000;
     &:hover {
-        background-color: #eebb00;
+        background-color: #03A89E;
     }
 `;
 
@@ -107,11 +109,11 @@ const Login = () => {
             <MainContainer>
                 <Title>Create Account</Title>
                 <SubTitle>Register using your name and email</SubTitle>
-                <Input type="text" placeholder="Enter Your Name"></Input>
-                <Input type="text" placeholder="Enter Your Email"></Input>
-                <Input type="text" placeholder="Confirm Your Email"></Input>
-                <Input type="text" placeholder="Enter Your Password"></Input>
-                <Input type="text" placeholder="Confirm Your Password"></Input>
+                <Input type="text" className='custom-font' placeholder="Enter Your Name"></Input>
+                <Input type="text" className='custom-font' placeholder="Enter Your Email"></Input>
+                <Input type="text" className='custom-font' placeholder="Confirm Your Email"></Input>
+                <Input type="text" className='custom-font' placeholder="Enter Your Password"></Input>
+                <Input type="text" className='custom-font' placeholder="Confirm Your Password"></Input>
                 <SubContainer>
                     <span>By continuing, you have read and agree to the</span>
                     <span>Term & Conditions</span>
@@ -122,8 +124,8 @@ const Login = () => {
             <MainContainer>
                 <Title>Login</Title>
                 <SubTitle>Already have an account? Welcome back!</SubTitle>
-                <Input type="text" placeholder="Enter Your Email"></Input>
-                <Input type="text" placeholder="Enter Your Password"></Input>
+                <Input type="text" className='custom-font' placeholder="Enter Your Email"></Input>
+                <Input type="text" className='custom-font' placeholder="Enter Your Password"></Input>
                 <SubContainer>
                     <span>Forget password?</span>
                 </SubContainer>
