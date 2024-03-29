@@ -1,13 +1,13 @@
 import React from "react";
-import logo from "../../assets/logo.png";
-import facebook from "../../assets/facebook.png";
-import camera from "../../assets/camera.png";
-import linkedin from "../../assets/linkedin.png";
-import video from "../../assets/video.png";
+import logo from "../../assets/imgs/logo.png";
+import facebook from "../../assets/imgs/facebook.png";
+import camera from "../../assets/imgs/camera.png";
+import linkedin from "../../assets/imgs/linkedin.png";
+import video from "../../assets/imgs/video.png";
 
 const Footer = () => {
   return (
-    <div className="w-full h-[330px] lg:h-[220px] px-[80px] flex flex-column justify-center bg-white">
+    <div className="w-full h-[330px] lg:h-[220px] px-[80px] flex flex-col justify-center bg-white">
       <div className="flex flex-col lg:flex-row justify-between items-center">
         {/* Logo */}
         <div className="flex items-center mb-4 lg:mb-0">
@@ -60,7 +60,7 @@ const Footer = () => {
           Copyright © 2023. All Rights Reserved
         </div>
         <a
-          href="/"
+          href="/privacy-policy"
           className="text-light-gray text-base no-underline cursor-pointer"
         >
           Privacy Policy | Terms & Conditions

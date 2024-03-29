@@ -22,9 +22,9 @@ const Auth = () => {
 
   return (
     <section className="w-full bg-[#F6F6F6] min-h-screen flex items-center justify-center">
-      <div className="relative bg-white rounded-xl flex flex-col min-[1050px]:flex-row w-full max-w-[968px] mx-8 min-[1050px]:mx-0 my-4">
-        <div className="absolute hidden min-[1050px]:block border-l border-[#C7C7C7] h-[680px] mt-[70px] left-1/2 transform -translate-x-1/2"></div>
-        <div className="px-5 min-[1050px]:px-16 pt-[77px] pb-[72px] w-full min-[1050px]:w-1/2 min-[1050px]:order-3">
+      <div className="relative bg-white rounded-xl flex flex-col lg:flex-row w-full max-w-[968px] mx-8 lg:mx-0 my-4">
+        <div className="absolute hidden lg:block border-l border-[#C7C7C7] h-[680px] mt-[70px] left-1/2 transform -translate-x-1/2"></div>
+        <div className="px-5 lg:px-16 pt-[77px] pb-[72px] w-full lg:w-1/2 lg:order-3">
           <h2 className="text-[28px] color-[#323232] font-bold pb-2">Login</h2>
           <p className="text-sm color-[#030303] mb-6">
             Already have an account? Welcome back!
@@ -77,8 +77,8 @@ const Auth = () => {
             LogIn
           </button>
         </div>
-        <hr className=" min-[1050px]:hidden mx-5 border-t border-[#E0E0E0]" />
-        <div className="px-5 min-[1050px]:px-16 pt-[77px] pb-[72px] w-full min-[1050px]:w-1/2 min-[1050px]:order-1">
+        <hr className=" lg:hidden mx-5 border-t border-[#E0E0E0]" />
+        <div className="px-5 lg:px-16 pt-[77px] pb-[72px] w-full lg:w-1/2 lg:order-1">
           <h2 className="text-[28px] color-[#323232] font-bold pb-2">
             Create Account
           </h2>
