@@ -1,5 +1,7 @@
 import React, { useState } from 'react';
 import "bootstrap/dist/css/bootstrap.min.css"; 
+import Header from "../components/header";
+import Footer from "../components/footer";
 import nothing from '../assets/nothing.png';
 
 import "../App.css";
@@ -14,6 +16,9 @@ const Buy = () => {
 
     return (
       <div className="container-fluid h-100" style={{ width: "100vw", background: "#BBBBBB" }}>
+        <div className="row bg-white" style={{ height: "10vh" }}>
+          <Header />
+        </div>
         <div className="row d-flex align-items-center justify-content-center" style={{ height: "70vh" }}>
           <div className="col-12 col-md-6 d-flex flex-column justify-content-center bg-white" style={{ height: "15vh", width: "90%", borderRadius: "10px" }}>
             <div className='row custom-font h-50 align-items-center' style={{ marginLeft: "40px",  fontWeight: "bold", fontSize: "20px"}} >
@@ -80,6 +85,9 @@ const Buy = () => {
               )
             }
           </div>
+        </div>
+        <div className="row bg-white" style={{ height: "20vh" }}>
+        <Footer />
         </div>
       </div>
     );

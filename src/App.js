@@ -1,10 +1,15 @@
 import Router from "./router/router";
-import Layout from "./Layout/index";
+import styled from 'styled-components';
+
+const Lay = styled.div`
+  display: flex;
+  flex-direction: row;
+`;
 
 export default function App() {
   return (
-    <Layout>
+    <Lay>
       <Router/>
-    </Layout>
+    </Lay>
   );
 }
