@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import SearchIcon from "../../assets/imgs/search.svg";
 import LocationIcon from "../../assets/imgs/location.svg";
 import GpsIcon from "../../assets/imgs/gps.svg";
+import {Link} from "react-router-dom";
 
 const SearchSection = () => {
   const [placeholder, setPlaceholder] = useState(
@@ -57,10 +58,13 @@ const SearchSection = () => {
             />
           </div>
         </div>
-        <button className="border-none bg-custom-green text-white text-xs rounded flex justify-center items-center w-[100%] h-[54px] lg:w-[20%] mt-4 lg:mt-0">
+        <Link
+          className="border-none bg-custom-green text-white text-xs rounded flex justify-center items-center w-[100%] h-[54px] lg:w-[20%] mt-4 lg:mt-0"
+          to="/buy?servicesList=true"
+        >
           <img src={GpsIcon} alt="gps" className="mr-3" />
           Find my Location
-        </button>
+        </Link>
       </div>
     </section>
   );

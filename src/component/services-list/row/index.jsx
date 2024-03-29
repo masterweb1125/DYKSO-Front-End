@@ -14,7 +14,7 @@ const ResultsRow = (props) => {
         <Button text={"Chat"} icon={SMSIcon} handleFunc={handleSMSBtn} />
         <Button text={"Email"} icon={EmailIcon} handleFunc={handleEmailBtn} />
         <Button
-          text={"Archive"}
+          text={"Mark for Follow-Up"}
           icon={ArchiveIcon}
           handleFunc={handleArchiveBtn}
         />

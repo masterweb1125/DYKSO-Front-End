@@ -7,7 +7,7 @@ const Button = (props) => {
       onClick={handleFunc}
     >
       <img src={icon} alt={text} className="lg:mr-3 mr-0" />
-      <span className="lg:block hidden font-normal text-[#A1ABB3] text-sm">
+      <span className="lg:block hidden font-normal text-[#A1ABB3] text-xs">
         {text}
       </span>
     </button>

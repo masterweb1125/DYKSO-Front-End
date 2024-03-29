@@ -34,7 +34,7 @@ const Main = () => {
             I’m here to buy/search for something
           </span>
         </Link>
-        <div
+        <Link
           className="lg:w-2/5 p-11 mb-8 lg:mb-0 bg-white h-[290px] rounded-2xl flex justify-center items-center lg:text-4xl text-3xl text-light-black hover:text-white cursor-pointer text-center"
           onMouseEnter={() => handleMouseEnter(1)}
           onMouseLeave={handleMouseLeave}
@@ -45,14 +45,15 @@ const Main = () => {
                 : "none",
             transition: "background-image 0.3s ease",
           }}
+          to="/sell"
         >
           <span className="w-[320px] md:w-[420px] lg:w-[500px]">
             I’m here to Sell/Request/Post something
           </span>
-        </div>
+        </Link>
 
         {/* Second Row of Cards */}
-        <Link
+        <div
           className="lg:w-2/5 lg:mr-10 mb-8 p-11 bg-white h-[290px] rounded-2xl flex justify-center items-center lg:text-4xl text-3xl text-light-black hover:text-white cursor-pointer text-center"
           onMouseEnter={() => handleMouseEnter(2)}
           onMouseLeave={handleMouseLeave}
@@ -63,13 +64,12 @@ const Main = () => {
                 : "none",
             transition: "background-image 0.3s ease",
           }}
-          to="/buy?servicesList=true"
         >
           <span className="w-[320px] md:w-[420px] lg:w-[500px]">
             Not ready for anything just yet? Click here to see what others are
             selling or requesting or have posted in your area
           </span>
-        </Link>
+        </div>
         <div
           className="lg:w-2/5 p-11 mb-8 bg-white h-[290px] rounded-2xl flex justify-center items-center lg:text-4xl text-3xl text-light-black hover:text-white cursor-pointer text-center"
           onMouseEnter={() => handleMouseEnter(3)}
