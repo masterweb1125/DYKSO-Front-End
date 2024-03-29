@@ -1,6 +1,4 @@
 import React from 'react';
-import Header from "../components/header";
-import Footer from "../components/footer";
 import styled from 'styled-components';
 import "../App.css";
 
@@ -13,9 +11,6 @@ const Sell = () => {
 
     return (
     <div className="container-fluid h-100" style={{ width: "100vw" }}>
-        <div className="row" style={{ height: "10vh" }}>
-          <Header />
-        </div>
         <div className="row" style={{ height: "70vh" }}>
           <Container>
             <MainContainer>
@@ -51,9 +46,6 @@ const Sell = () => {
               </ButtonContainer>
             </MainContainer>
           </Container>
-        </div>
-        <div className="row" style={{ height: "20vh" }}>
-          <Footer />
         </div>
     </div>
     );
