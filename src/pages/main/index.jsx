@@ -53,7 +53,7 @@ const Main = () => {
         </Link>
 
         {/* Second Row of Cards */}
-        <div
+        <Link
           className="lg:w-2/5 lg:mr-10 mb-8 p-11 bg-white h-[290px] rounded-2xl flex justify-center items-center lg:text-4xl text-3xl text-light-black hover:text-white cursor-pointer text-center"
           onMouseEnter={() => handleMouseEnter(2)}
           onMouseLeave={handleMouseLeave}
@@ -64,13 +64,14 @@ const Main = () => {
                 : "none",
             transition: "background-image 0.3s ease",
           }}
+          to="/buy"
         >
           <span className="w-[320px] md:w-[420px] lg:w-[500px]">
             Not ready for anything just yet? Click here to see what others are
             selling or requesting or have posted in your area
           </span>
-        </div>
-        <div
+        </Link>
+        <Link
           className="lg:w-2/5 p-11 mb-8 bg-white h-[290px] rounded-2xl flex justify-center items-center lg:text-4xl text-3xl text-light-black hover:text-white cursor-pointer text-center"
           onMouseEnter={() => handleMouseEnter(3)}
           onMouseLeave={handleMouseLeave}
@@ -81,12 +82,13 @@ const Main = () => {
                 : "none",
             transition: "background-image 0.3s ease",
           }}
+          to="/sell"
         >
           <div className="flex flex-col justify-center items-center w-[320px] md:w-[420px] lg:w-[500px]">
             <img src={Camera} alt="cam" className="mb-3 w-[120px] h-[120px]" />
             Capture and post
           </div>
-        </div>
+        </Link>
       </div>
     </section>
   );
