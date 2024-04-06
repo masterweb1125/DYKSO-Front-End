@@ -2,6 +2,7 @@ import Button from "../../button/index";
 import SMSIcon from "../../../assets/imgs/sms.svg";
 import EmailIcon from "../../../assets/imgs/email.svg";
 import ArchiveIcon from "../../../assets/imgs/archive.svg";
+import { Link } from "react-router-dom";
 
 const ResultsRow = (props) => {
   const { bidTitle, handleSMSBtn, handleEmailBtn, handleArchiveBtn } = props;
@@ -11,8 +12,10 @@ const ResultsRow = (props) => {
         {bidTitle}
       </div>
       <div className="flex justify-center items-center gap-3">
-        <Button text={"Chat"} icon={SMSIcon} handleFunc={handleSMSBtn} />
-        <Button text={"Email"} icon={EmailIcon} handleFunc={handleEmailBtn} />
+        <Link to="/buy?serviceName=true">
+          <Button text={"Chat"} icon={SMSIcon} handleFunc={handleSMSBtn} />  </Link>
+        <Link to="/buy?serviceName=true">
+          <Button text={"Email"} icon={EmailIcon} handleFunc={handleEmailBtn} /> </Link>
         <Button
           text={"Mark for Follow-Up"}
           icon={ArchiveIcon}
