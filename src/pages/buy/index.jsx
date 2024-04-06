@@ -7,12 +7,17 @@ import ServiceName from "./service-name";
 
 const Buy = () => {
   const [servicesList, setServicesList] = useState([]);
+  const [filter, setFilter] = useState("");
   const { search } = useLocation();
   const queryParams = useMemo(() => new URLSearchParams(search), [search]);
 
+  const handleFilterChange = event => {
+    setFilter(event.target.value);
+  };
+
   const renderContent = () => {
     if (queryParams.get("servicesList")) {
-      return <ServicesList />;
+      return <ServicesList filter={filter} />;
     } else if (queryParams.get("serviceName")) {
       return <ServiceName />;
     } else {
@@ -22,7 +27,7 @@ const Buy = () => {
 
   return (
     <div className="w-full bg-[#F6F6F6] h-4/5 flex flex-col items-center pt-12">
-      <SearchSection />
+      <SearchSection onFilterChange={handleFilterChange} />
       {renderContent()}
     </div>
   );

@@ -4,7 +4,7 @@ import LocationIcon from "../../assets/imgs/location.svg";
 import GpsIcon from "../../assets/imgs/gps.svg";
 import {Link} from "react-router-dom";
 
-const SearchSection = () => {
+const SearchSection = ({ onFilterChange }) => {
   const [placeholder, setPlaceholder] = useState(
     "Just start typing here what you want to buy / search. Results will automatically appear."
   );
@@ -39,6 +39,7 @@ const SearchSection = () => {
             </div>
             <input
               type="search"
+              onChange={onFilterChange}
               id="default-search"
               className="block w-full p-4 ps-10 text-sm text-[#8C8C8C] border border-[#A9A9A9] rounded bg-gray-50 focus:ring-custom-green focus:border-custom-green placeholder-[20px] sm:placeholder-[16px]"
               placeholder={placeholder}
