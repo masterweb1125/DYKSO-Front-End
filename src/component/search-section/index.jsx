@@ -4,7 +4,7 @@ import LocationIcon from "../../assets/imgs/location.svg";
 import GpsIcon from "../../assets/imgs/gps.svg";
 import {Link} from "react-router-dom";
 
-const SearchSection = ({ onFilterChange }) => {
+const SearchSection = ({zipCode, onFilterChange, currentPage }) => {
   const [placeholder, setPlaceholder] = useState(
     "Just start typing here what you want to buy / search. Results will automatically appear."
   );
@@ -56,12 +56,13 @@ const SearchSection = ({ onFilterChange }) => {
               type="text"
               className="block w-full p-4 ps-10 text-sm text-[#8C8C8C] border border-[#A9A9A9] rounded bg-gray-50 focus:ring-custom-green focus:border-custom-green"
               placeholder="Enter Zip Code"
+              defaultValue={zipCode}
             />
           </div>
         </div>
         <Link
           className="border-none bg-custom-green text-white text-xs rounded flex justify-center items-center w-[100%] h-[54px] lg:w-[20%] mt-4 lg:mt-0"
-          to="/buy?servicesList=true"
+          to={currentPage === "buy service"?"/buy?servicesList=true" : "#"}
         >
           <img src={GpsIcon} alt="gps" className="mr-3" />
           Find my Location
