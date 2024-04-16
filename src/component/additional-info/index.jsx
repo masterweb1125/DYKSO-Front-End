@@ -1,9 +1,18 @@
 import React from "react";
 import uploadIcon from "../../assets/imgs/upload-icon.svg";
 import pdfIcon from "../../assets/imgs/pdf-icon.svg";
-
+import { useSelector } from "react-redux";
+import { useNavigate } from 'react-router-dom';
 const AdditionalInfo = (props) => {
+  const token = useSelector((state) => state?.user?.token);
+  const navigate = useNavigate();
   const { additionalInfo, setAdditionalInfo } = props;
+
+
+  const PostHandler = () => {
+    if (!token)
+      navigate("/register");
+  }
 
   return (
     <section className="bg-white rounded-2xl md:rounded flex flex-col w-full max-w-[80%] mx-8 lg:mx-0 my-4 px-6 py-8 mb-20 ">
@@ -40,7 +49,7 @@ const AdditionalInfo = (props) => {
         <button className=" w-[160px] min-[1050px]:w-[180px] bg-white rounded text-black font-medium py-[18px] border border-[#3E3E3E]">
           Cancel
         </button>
-        <button className=" w-[160px] min-[1050px]:w-[180px] bg-[#03A89E] rounded text-black font-medium py-[18px]">
+        <button onClick={PostHandler} className=" w-[160px] min-[1050px]:w-[180px] bg-[#03A89E] rounded text-black font-medium py-[18px]">
           Post
         </button>
       </div>

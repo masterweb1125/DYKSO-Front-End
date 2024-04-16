@@ -4,8 +4,11 @@ import facebook from "../../assets/imgs/facebook.png";
 import camera from "../../assets/imgs/camera.png";
 import linkedin from "../../assets/imgs/linkedin.png";
 import video from "../../assets/imgs/video.png";
+import { useSelector } from "react-redux";
 
 const Footer = () => {
+
+
   return (
     <div className="w-full h-[330px] lg:h-[220px] px-[80px] flex flex-col justify-center bg-white">
       <div className="flex flex-col lg:flex-row justify-between items-center">

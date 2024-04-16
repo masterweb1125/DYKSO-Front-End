@@ -5,12 +5,18 @@ import NothingSearched from "../../component/nothing-searched/index";
 import ServicesList from "../../component/services-list/index";
 import ServiceName from "./service-name";
 import { getCurrentLocationZipCode } from "../../utils/getCurrentLocationZipCode";
+import { useSelector } from "react-redux";
 
 const Buy = () => {
   const [filter, setFilter] = useState("");
   const [zipCode, addZipCode] = useState("");
   const { search } = useLocation();
   const queryParams = useMemo(() => new URLSearchParams(search), [search]);
+
+
+  const data = useSelector((state) => state?.user?.token);
+  console.log("token in buy page: ", data)
+
 
   const getCurrentLocation =  async() => {
     const zipCode = await getCurrentLocationZipCode();

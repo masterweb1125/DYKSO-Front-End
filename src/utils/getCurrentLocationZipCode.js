@@ -4,8 +4,6 @@ export const getCurrentLocationZipCode = () => {
   return new Promise((resolve, reject) => {
     navigator.geolocation.getCurrentPosition(
         async (pos) => {
-            // const latitude = 40.70998;
-            // const longitude = -74.02088
         const { latitude, longitude } = pos.coords;
         const url = `https://nominatim.openstreetmap.org/reverse?format=json&lat=${latitude}&lon=${longitude}`;
         try {
