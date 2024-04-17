@@ -6,6 +6,7 @@ import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { SignUp_validate } from "../../model/signUpSchema";
 import { useNavigate} from "react-router-dom";
+import { toast } from "react-toastify";
 
 
 const Auth = () => {
@@ -34,11 +35,14 @@ const Auth = () => {
       try {
         const res = await Login(dispatch, loginCreds)
         if (res === 200) {
+          toast.success("Login successfully")
           navigate("/");
         } else if (res?.status === 400) {
-          window.alert("Incorrect login credentials")
+          toast.error("Incorrect login credentials")
         }
       } catch (error) {
+        toast.error("Something went wrong")
+        console.log("login error: " + error);
         
       }
 
@@ -56,10 +60,12 @@ const Auth = () => {
    try {
      const res = await CreatingUser(dispatch, userInfo)
      if (res === 200) {
+       toast.success("registration done successfully");
        navigate("/");
     }
    } catch (error) {
-    console.log("something went wrong while register a user")
+     toast.error("Something went wrong")
+
    }
 
     // signup logic here

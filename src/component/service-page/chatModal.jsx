@@ -1,13 +1,26 @@
 import React from 'react'
 import { IoMdClose } from "react-icons/io";
 import profile_pic from "../../assets/imgs/profile-pic.png";
+import { useSelector } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
 
 const ChatModalComponent = (props) => {
     const { setchatModal } = props;
-
+    const token = useSelector((state) => state?.user?.token);
+    const navigate = useNavigate();
+    
     const handleChatModal = () => {
         setchatModal(prev => !prev);
     }
+
+    const sendMessageHandler = () => {
+        if (!token) {
+            navigate("/register");
+            return;
+        }
+    }
+
+    
     return (
         <div className='fixed w-screen bg-[rgba(0,0,0,0.7)] h-screen flex justify-center items-center top-0 overflow-hidden center'>
             <div className="wrapper bg-white w-[90%] md:w-[40%]  px-5 py-4 rounded-lg">
@@ -37,7 +50,7 @@ const ChatModalComponent = (props) => {
                     <div className="btns flex  flex-col gap-4 md:flex-row md:gap-3">
                         <button onClick={handleChatModal} className='py-2 w-[100%] md:w-[50%] hover:bg-[#03A89E] flex justify-center items-center border border-gray-400 rounded-sm'>Cancel</button>
                         
-                        <button className='py-2 w-[100%] md:w-[50%] hover:bg-[#03A89E] flex justify-center items-center border border-gray-400 rounded-sm'>Send</button>
+                        <button onClick={sendMessageHandler} className='py-2 w-[100%] md:w-[50%] hover:bg-[#03A89E] flex justify-center items-center border border-gray-400 rounded-sm'>Send</button>
                     </div>
                 </div>
             </div>

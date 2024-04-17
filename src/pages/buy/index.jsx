@@ -6,25 +6,41 @@ import ServicesList from "../../component/services-list/index";
 import ServiceName from "./service-name";
 import { getCurrentLocationZipCode } from "../../utils/getCurrentLocationZipCode";
 import { useSelector } from "react-redux";
+import { API_DOMAIN } from "../../redux/api";
+import { toast } from "react-toastify";
 
 const Buy = () => {
   const [filter, setFilter] = useState("");
+  const [services, setservices] = useState([]);
   const [zipCode, addZipCode] = useState("");
   const { search } = useLocation();
   const queryParams = useMemo(() => new URLSearchParams(search), [search]);
-
-
   const data = useSelector((state) => state?.user?.token);
-  console.log("token in buy page: ", data)
 
+
+  const FetchingServices = async (zip_code) => {
+    console.log("passed zipcode as props: ", zip_code)
+    try {
+      const res = await API_DOMAIN.get(`/api/v1/service/${zip_code}`);
+      console.log("API res is: ", res.data.data)
+      if (res.status === 200) {
+        setservices(res?.data?.data)
+      }
+    } catch (error) {
+      console.log("something went wrong while fetching services data: ", error);
+      toast.error("Something went wrong");
+
+    }
+  }
 
   const getCurrentLocation =  async() => {
     const zipCode = await getCurrentLocationZipCode();
     if (zipCode !== undefined && zipCode !== null) {
-        addZipCode(zipCode);
-      console.log("current location zipCode is: ", zipCode)
+      FetchingServices(zipCode);
+      addZipCode(zipCode);
     }
   }
+
 
   useEffect(() => {
     getCurrentLocation();
@@ -37,7 +53,7 @@ const Buy = () => {
 
   const renderContent = () => {
     if (queryParams.get("servicesList")) {
-      return <ServicesList filter={filter} />;
+      return <ServicesList filter={filter} servicesData={services} />;
     } else if (queryParams.get("serviceName")) {
       return <ServiceName />;
     } else {

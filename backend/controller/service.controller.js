@@ -3,7 +3,6 @@ import { serviceModel } from "../model/service.model.js";
 
 export const addService = async (req, res) => {
     // first we need to validate the data before saving it in DB
-    console.log("inside service controller")
   const { error } = serviceSchema_validation(req.body);
   if (error) return res.send(error.details[0].message);
 
@@ -20,6 +19,26 @@ export const addService = async (req, res) => {
       await createService.save();
       res.status(200).json({ success: true, message: "service added successfully", service:createService });
 
+  } catch (err) {
+    res.status(500).json({
+      status: 500,
+      success: false,
+      message: err,
+    });
+  }
+};
+
+
+export const fetchServices = async (req, res) => {
+  const zipCode = req.params.zipCode;
+  try {
+    const services = await serviceModel.find({ zipCode });
+    res
+      .status(200)
+      .json({
+        success: true,
+        data: services,
+      });
   } catch (err) {
     res.status(500).json({
       status: 500,

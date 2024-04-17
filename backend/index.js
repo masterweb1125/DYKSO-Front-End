@@ -14,7 +14,7 @@ const PORT = process.env.PORT;
 // ----- connecting to database -----
 dbConnection(DB_URL);
 const corsOptions = {
-  origin: ['http://localhost:3000', 'http://localhost:3001'],  // these domains are acceptable for hiting apis
+  origin: ['http://localhost:3000', 'http://localhost:3001'], 
 //   credentials: true,
 };
 
@@ -23,7 +23,7 @@ app.use(express.json())
 app.use(express.urlencoded({ extended: true }));
 
 
-// ---- Default/home page route
+// ---- Default/home page route --------
 app.get("/", (req, res) => {
   res.send("WELCOME TO THE 'DYKSO' PROJECT SERVER 👋");
 });

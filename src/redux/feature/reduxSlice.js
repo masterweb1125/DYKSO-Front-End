@@ -15,6 +15,7 @@ export const UserInfo = createSlice({
     },
 
     setUserData: (state, action) => {
+      console.log("login action.payload: ", action.payload);
       state.userData = action.payload.data;
       state.token = action.payload.token;
     },
