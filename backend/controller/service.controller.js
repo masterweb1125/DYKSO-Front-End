@@ -31,14 +31,36 @@ export const addService = async (req, res) => {
 
 export const fetchServices = async (req, res) => {
   const zipCode = req.params.zipCode;
+  const userId = req.params.id;
   try {
-    const services = await serviceModel.find({ zipCode });
+       const services = await serviceModel.find({
+         zipCode,
+         userId: { $ne: userId },
+       });
     res
       .status(200)
       .json({
         success: true,
         data: services,
       });
+  } catch (err) {
+    res.status(500).json({
+      status: 500,
+      success: false,
+      message: err,
+    });
+  }
+};
+
+// fetching single service data based on ID
+export const fetchSingleService = async (req, res) => {
+  const Id = req.params.id;
+  try {
+    const services = await serviceModel.findById(Id);
+    res.status(200).json({
+      success: true,
+      data: services,
+    });
   } catch (err) {
     res.status(500).json({
       status: 500,

@@ -2,7 +2,6 @@ import React from "react";
 import ResultsRow from "./row/index";
 
 const ServicesList = ({ filter, servicesData }) => {
-  console.log("service data length: ", servicesData.length)
   const filteredData = servicesData.filter(data =>
     data.service_info.toLowerCase().includes(filter.toLowerCase())
   );
@@ -12,7 +11,7 @@ const ServicesList = ({ filter, servicesData }) => {
         <>
           {filteredData.map((data, index) => (
             <React.Fragment key={index}>
-              <ResultsRow bidTitle={data.service_info} key={index + "-bid-title"} />
+              <ResultsRow service_id={data?._id} bidTitle={data.service_info} key={index + "-bid-title"} />
               {index !== filteredData.length - 1 && <hr className="my-5" />}{" "}
             </React.Fragment>
           ))}

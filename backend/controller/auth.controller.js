@@ -57,7 +57,7 @@ export const SignIn = async (
 ) => {
   // first we need to validate the data before saving it in DB
   const { error } = SignIn_validate(req.body);
-  if (error) return res.send(error.details[0].message);
+  if (error) return res.status(400).json({message: error.details[0].message, success: false, status: 400});
   console.log(req.body);
   try {
     const User= await userModel.findOne({ email: req.body.email });

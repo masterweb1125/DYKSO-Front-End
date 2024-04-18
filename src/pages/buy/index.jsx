@@ -15,13 +15,11 @@ const Buy = () => {
   const [zipCode, addZipCode] = useState("");
   const { search } = useLocation();
   const queryParams = useMemo(() => new URLSearchParams(search), [search]);
-  const data = useSelector((state) => state?.user?.token);
-
+  const user = useSelector((state) => state?.user?.userData);
 
   const FetchingServices = async (zip_code) => {
-    console.log("passed zipcode as props: ", zip_code)
     try {
-      const res = await API_DOMAIN.get(`/api/v1/service/${zip_code}`);
+      const res = await API_DOMAIN.get(`/api/v1/service/${zip_code}/${user?._id}`);
       console.log("API res is: ", res.data.data)
       if (res.status === 200) {
         setservices(res?.data?.data)

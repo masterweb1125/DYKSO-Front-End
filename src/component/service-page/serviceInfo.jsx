@@ -3,7 +3,7 @@ import paint_house_pic from "../../assets/imgs/paint-house-pic.svg";
 import profile_pic from "../../assets/imgs/profile-pic.png";
 import { LIST } from '../../constant';
 
-const ServiceInfo = () => {
+const ServiceInfo = ({ service }) => {
   return (
       <div className='wrapper w-[100%] flex md:flex-row flex-col md:gap-3 justify-between py-8'>
           {/* left side (pic) */}
@@ -20,12 +20,15 @@ const ServiceInfo = () => {
               {/* additional info */}
               <div className="info flex flex-col gap-4">
                   <h2 className='text-[1.4rem] '>Additional Information</h2>
+                  <p>
+                      {service?.service_info ? service.service_info : ""}
+                  </p>
 
-                  <ul className='list-disc ml-4 flex flex-col gap-1'>
+                  {/* <ul className='list-disc ml-4 flex flex-col gap-1'>
                       {LIST.map((list) => (
                           <li key={list.id} className='text-[#8D8D8D]'>{list.LIST_DATA}</li>
                      ))}
-                  </ul>
+                  </ul> */}
               </div>
           </div>
     </div>
