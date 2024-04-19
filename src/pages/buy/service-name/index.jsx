@@ -40,8 +40,8 @@ const ServiceName = () => {
         <ServiceInfo service={service} />
     </div>
     
-      {emailModal && <EmailModalComponent setemailModal={setEmailModal} />}
-      {chatModal && <ChatModalComponent setchatModal={setchatModal} />}
+      {emailModal && <EmailModalComponent setemailModal={setEmailModal} service={service} />}
+      {chatModal && <ChatModalComponent setchatModal={setchatModal} service={service} />}
     </>
   )
 }

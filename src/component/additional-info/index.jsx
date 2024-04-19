@@ -6,16 +6,16 @@ import { useNavigate } from 'react-router-dom';
 import { API_DOMAIN } from "../../redux/api";
 import { AiOutlineLoading3Quarters } from "react-icons/ai";
 import { toast } from "react-toastify";
+import axios from "axios";
 
 const AdditionalInfo = (props) => {
   const [additionalInfo, setAdditionalInfo] = useState("");
   const [laoding, setlaoding] = useState(false);
+  const [serviceTitle, setserviceTitle] = useState("");
 
   const navigate = useNavigate();
   const { zipCode } = props;
   const { token, userData } = useSelector((state) => state?.user);
-
-  // console.log(`zipdc: ${zipCode} : user data: ${userData?._id}`)
 
   const fileInputRef = useRef(null);
   const [uploadedFile, setUploadedFile] = useState(null);
@@ -39,32 +39,69 @@ const AdditionalInfo = (props) => {
     }
   };
 
+  // uploading file to cloudinary
+  const uploadingFileCloudinary = async() => {
+    try {
+      if (uploadedFile != null) {
+        const data = new FormData();
+        data.append("file", uploadedFile);
+        data.append("upload_preset", "uploads");
+        data.append("cloud_name", "bangash-cloud");
+
+        const uploadRes = await axios.post(
+          "https://api.cloudinary.com/v1_1/bangash-cloud/image/upload",
+          data
+        );
+        console.log(uploadRes)
+        var { url } = uploadRes.data;
+        // console.log("uploaded file url is: ", url);
+        return url;
+      }
+      
+    } catch (error) {
+      console.log("an error occured while uploading file to the cloudinary: ", error);
+      toast.error("An error occured while uploading file to the cloud")
+      return null;
+    }
+  }
+
+
   const PostHandler = async() => {
     if (!token) {
       navigate("/register");
       return;
     }
-    if (!additionalInfo || !uploadedFile) {
+    if (!additionalInfo || !uploadedFile || !serviceTitle) {
       toast.error("Incomplete post detail")
       return;
     }
-    const serviceData = {
-      userId: userData?._id,
-      zipCode: zipCode,
-      service_info: additionalInfo,
-      attachment: uploadedFile?.name
-}
+
     try {
       setlaoding(true);
+    // Upload file to Cloudinary and get the URL
+    const cloudinaryURL = await uploadingFileCloudinary();
+
+      if (cloudinaryURL) {
+      const serviceData = {
+      userId: userData?._id,
+      posterName: userData?.name,
+      posterEmail: userData?.email,
+      serviceTitle: serviceTitle,
+      zipCode: zipCode,
+      service_info: additionalInfo,
+      attachment: cloudinaryURL
+    }
+    
+      // Call the API to post service data
       const res = await API_DOMAIN.post(`/api/v1/service`, serviceData);
-      console.log("API res is: ", res)
       if (res.status === 200) {
         toast.success("service posted successfully")
         setAdditionalInfo("");
+        setserviceTitle("");
         setUploadedFile(null);
-        setlaoding(false);
-
-       }
+      }
+      }
+      setlaoding(false);
     } catch (error) {
       console.log("something went wrong while saving service data: ", error);
       setlaoding(false);
@@ -75,6 +112,17 @@ const AdditionalInfo = (props) => {
 
   return (
     <section className="bg-white rounded-2xl md:rounded flex flex-col w-full max-w-[80%] mx-8 lg:mx-0 my-4 px-6 py-8 mb-20 ">
+     
+      <h2 className="text-xl mb-4">Service Title</h2>
+      <input type="text"
+        className="w-full mb-8 py-3 px-5 rounded border border-[#9B9B9B]"
+        value={serviceTitle}
+        placeholder="Enter service title"
+        onChange={(e) => {
+          setserviceTitle(e.target.value);
+        }}
+      />
+
       <h2 className="text-xl mb-4">Additional Information</h2>
       <textarea
         className="w-full mb-8 h-[200px] p-5 rounded border border-[#9B9B9B]"
@@ -97,6 +145,7 @@ const AdditionalInfo = (props) => {
         <p className="text-lg ">Drag & Drop or Browse</p>
         <input
           type="file"
+          accept="image/*"
           ref={fileInputRef}
           style={{ display: "none" }}
           onChange={handleFileChange}

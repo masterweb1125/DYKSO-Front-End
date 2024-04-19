@@ -1,11 +1,13 @@
 import React from 'react'
 import { IoMdClose } from "react-icons/io";
 import profile_pic from "../../assets/imgs/profile-pic.png";
+import profile_avatar from "../../assets/imgs/profile-avatar.jpg";
+
 import { useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 
 const ChatModalComponent = (props) => {
-    const { setchatModal } = props;
+    const { setchatModal, service } = props;
     const token = useSelector((state) => state?.user?.token);
     const navigate = useNavigate();
     
@@ -36,8 +38,8 @@ const ChatModalComponent = (props) => {
 
                     {/* img + title */}
                     <div className="img-title flex gap-5 items-center py-4 ">
-                        <img src={profile_pic} className='w-[40px] h-[40px]' alt='paint-house-pic' />
-                        <h2 className='text-[1.3rem] font-normal tracking-0 md:tracking-wide'>Esther Howard</h2>
+                        <img src={service?.profileImage ? service?.profileImage : profile_avatar} className='w-[40px] h-[40px]' alt='paint-house-pic' />
+                        <h2 className='text-[1.3rem] font-normal tracking-0 md:tracking-wide'>{service?.posterName ? service?.posterName : "Esther Howard"}</h2>
                     </div>
 
                     <form action="" className='flex flex-col gap-3'>

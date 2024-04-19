@@ -4,7 +4,7 @@ import { useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 
 const EmailModalComponent = (props) => {
-    const { setemailModal } = props;
+    const { setemailModal, service } = props;
     const token = useSelector((state) => state?.user?.token);
     const navigate = useNavigate();
 
@@ -32,7 +32,7 @@ const EmailModalComponent = (props) => {
 
               {/* fields */}
               <div className="fields-controller w-full flex flex-col gap-4 py-3">
-                  <p> <span className='font-semibold'>To: </span> estherhoward@domain.com</p>
+                  <p> <span className='font-semibold'>To: </span> {service?.posterEmail ? service?.posterEmail : "example@domain.com"}</p>
                   <form action="" className='flex flex-col gap-3'>
                       <div className="field flex flex-col gap-1">
                       <label htmlFor="subject">Subject</label>
