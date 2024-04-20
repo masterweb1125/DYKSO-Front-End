@@ -1,24 +1,26 @@
 import React, { useRef, useState } from "react";
 import uploadIcon from "../../assets/imgs/upload-icon.svg";
 import pdfIcon from "../../assets/imgs/pdf-icon.svg";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from 'react-router-dom';
 import { API_DOMAIN } from "../../redux/api";
 import { AiOutlineLoading3Quarters } from "react-icons/ai";
 import { toast } from "react-toastify";
 import axios from "axios";
+import { AddServiceData } from "../../redux/feature/reduxSlice";
 
 const AdditionalInfo = (props) => {
   const [additionalInfo, setAdditionalInfo] = useState("");
   const [laoding, setlaoding] = useState(false);
   const [serviceTitle, setserviceTitle] = useState("");
-
   const navigate = useNavigate();
   const { zipCode } = props;
   const { token, userData } = useSelector((state) => state?.user);
-
   const fileInputRef = useRef(null);
   const [uploadedFile, setUploadedFile] = useState(null);
+
+
+  const dispatch = useDispatch();
 
   const handleFileChange = (e) => {
     const file = e.target.files[0];
@@ -52,7 +54,6 @@ const AdditionalInfo = (props) => {
           "https://api.cloudinary.com/v1_1/bangash-cloud/image/upload",
           data
         );
-        console.log(uploadRes)
         var { url } = uploadRes.data;
         // console.log("uploaded file url is: ", url);
         return url;
@@ -67,10 +68,7 @@ const AdditionalInfo = (props) => {
 
 
   const PostHandler = async() => {
-    if (!token) {
-      navigate("/register");
-      return;
-    }
+    
     if (!additionalInfo || !uploadedFile || !serviceTitle) {
       toast.error("Incomplete post detail")
       return;
@@ -92,6 +90,13 @@ const AdditionalInfo = (props) => {
       attachment: cloudinaryURL
     }
     
+        if (!token) {
+          dispatch(AddServiceData(serviceData))
+          navigate("/register");
+          return;
+        }
+        
+        console.log("after navigation to register page: ")
       // Call the API to post service data
       const res = await API_DOMAIN.post(`/api/v1/service`, serviceData);
       if (res.status === 200) {

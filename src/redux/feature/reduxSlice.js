@@ -4,6 +4,7 @@ export const UserInfo = createSlice({
   name: "user",
   initialState: {
     userData: {},
+    serviceData: {},
     token: "",
     loading: false,
     error: false,
@@ -24,6 +25,13 @@ export const UserInfo = createSlice({
       state.userData = {};
       state.token = "";
     },
+
+
+    AddServiceData: (state, action) => {
+      state.serviceData = action.payload;
+      console.log("action.payload service data: ", action.payload);
+    },
+
     ApiRequestFailed: (state) => {
       state.loading = false;
       state.error = true;
@@ -31,7 +39,12 @@ export const UserInfo = createSlice({
   },
 });
 
-export const { setUserData, ApiRequestFailed, MakingApiRequest, LogOutUser } =
-  UserInfo.actions;
+export const {
+  setUserData,
+  ApiRequestFailed,
+  MakingApiRequest,
+  LogOutUser,
+  AddServiceData,
+} = UserInfo.actions;
 
 export default UserInfo.reducer;
