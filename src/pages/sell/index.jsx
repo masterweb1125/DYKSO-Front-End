@@ -10,7 +10,6 @@ const Sell = () => {
     const zipCode = await getCurrentLocationZipCode();
     if (zipCode !== undefined && zipCode !== null) {
       addZipCode(zipCode);
-      console.log("current location zipCode is: ", zipCode)
     }
   }
 

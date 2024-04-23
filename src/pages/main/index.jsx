@@ -1,10 +1,13 @@
 import { useRef, useState } from "react";
 import Camera from "../../assets/imgs/cam.png";
-import {  Link } from "react-router-dom";
+import {  Link, useNavigate } from "react-router-dom";
+import { useDispatch } from "react-redux";
+import { AddCaptureData } from "../../redux/feature/generalSlice";
 
 const Main = () => {
   const [hoveredIndex, setHoveredIndex] = useState(null);
-
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
   const handleMouseEnter = (index) => {
     setHoveredIndex(index);
   };
@@ -18,8 +21,8 @@ const Main = () => {
   const UploadAttachments = async (event) => {
     if (event.target.files && event.target.files[0]) {
       const file = event.target.files[0];
-      const fileUrl = URL.createObjectURL(file);
-      console.log("capturing a picture: ", file)
+      dispatch(AddCaptureData(file));
+      navigate("/sell")
     }
   }
 

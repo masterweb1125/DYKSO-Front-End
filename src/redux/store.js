@@ -11,16 +11,18 @@ import {
   REGISTER,
 } from "redux-persist";
 
-import UserInfo  from "./feature/reduxSlice";
+import UserInfo from "./feature/reduxSlice";
+import generalSlice from "./feature/generalSlice";
 
 const persistConfig = {
   key: "root",
   storage,
-  blacklist: [],
+  blacklist: ["generalData"],
 };
 
 const rootReducer = combineReducers({
   user: UserInfo,
+  generalData: generalSlice,
 });
 
 const persistedReducer = persistReducer(persistConfig, rootReducer);

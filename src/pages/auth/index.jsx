@@ -7,10 +7,16 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import { SignUp_validate } from "../../model/signUpSchema";
 import { useNavigate} from "react-router-dom";
 import { toast } from "react-toastify";
+import OTP_Modal from "../../components/OTP_Modal";
+import OTPModal from "../../components/OTP_Modal";
+import { GenerateOTP } from "../../utils/generateRandomOtp";
 
 
 const Auth = () => {
   const dispatch = useDispatch();
+  const [OTPDialoug, setOTPDialoug] = useState(false);
+  const [otp, setotp] = useState("");
+
   const [loginCreds, setLoginCreds] = useState({
     email: "",
     password: "",
@@ -57,16 +63,20 @@ const Auth = () => {
       email: email,
       password: password
     }
-   try {
-     const res = await CreatingUser(dispatch, userInfo)
-     if (res === 200) {
-       toast.success("registration done successfully");
-       navigate("/");
-    }
-   } catch (error) {
-     toast.error("Something went wrong")
+    const newOtp = GenerateOTP();
+console.log("new otp: ", newOtp)
 
-   }
+    setOTPDialoug(true);
+  //  try {
+  //    const res = await CreatingUser(dispatch, userInfo)
+  //    if (res === 200) {
+  //      toast.success("registration done successfully");
+  //      navigate("/");
+  //   }
+  //  } catch (error) {
+  //    toast.error("Something went wrong")
+
+  //  }
 
     // signup logic here
   };
@@ -262,7 +272,9 @@ const Auth = () => {
           </form>
         </div>
       </div>
+      {OTPDialoug && <OTPModal setOTPDialoug={setOTPDialoug } />}
     </section>
+
   );
 };
 

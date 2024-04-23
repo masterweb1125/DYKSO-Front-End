@@ -1,4 +1,4 @@
-import React, { useRef, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import uploadIcon from "../../assets/imgs/upload-icon.svg";
 import pdfIcon from "../../assets/imgs/pdf-icon.svg";
 import { useDispatch, useSelector } from "react-redux";
@@ -16,9 +16,18 @@ const AdditionalInfo = (props) => {
   const navigate = useNavigate();
   const { zipCode } = props;
   const { token, userData } = useSelector((state) => state?.user);
+  const captureFile = useSelector((state) => state?.generalData?.captureData);
   const fileInputRef = useRef(null);
   const [uploadedFile, setUploadedFile] = useState(null);
 
+  
+
+  useEffect(() => {
+    if (captureFile) {
+       setUploadedFile(captureFile);
+    }
+  }, [])
+  
 
   const dispatch = useDispatch();
 
@@ -55,7 +64,6 @@ const AdditionalInfo = (props) => {
           data
         );
         var { url } = uploadRes.data;
-        // console.log("uploaded file url is: ", url);
         return url;
       }
       
