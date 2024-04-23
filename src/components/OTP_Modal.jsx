@@ -2,18 +2,47 @@ import React, { useState } from 'react'
 import { LuLoader2 } from 'react-icons/lu'
 import Testotp from './checkingOtp';
 import { IoClose } from "react-icons/io5";
+import { toast } from 'react-toastify';
+import { useDispatch } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
+import { CreatingUser } from '../redux/api';
 
-const OTPModal = ({ setOTPDialoug }) => {
+const OTPModal = ({ setOTPDialoug, generatedOTP, userData }) => {
     const [otp, setOtp] = useState("");
     const [loading, setloading] = useState(false);
+    const dispatch = useDispatch();
+    const navigate = useNavigate();
+
 
     // otp modal close
     const CloseOTPModel = () => {
         setOTPDialoug((prev)=> !prev)
     }
 
-    const CompareOTP = () => {
-        setOTPDialoug((prev) => !prev)
+    const CompareOTP = async () => {
+        setloading(true);
+        if (generatedOTP === otp) {
+            
+            try {
+                const res = await CreatingUser(dispatch, userData)
+                if (res === 200) {
+                    toast.success("registration done successfully");
+                    setOTPDialoug((prev) => !prev)
+                    navigate("/");
+                }
+                setloading(false);
+            } catch (error) {
+                toast.error("Something went wrong")
+                setloading(false);
+
+            }
+
+
+        } else {
+            toast.error("Incorrect OTP!")
+            setloading(false);
+
+        }
     }
 
   return (
@@ -31,7 +60,7 @@ const OTPModal = ({ setOTPDialoug }) => {
                   </h3>
               <p className="text-[1rem] text-black  ">
                       Enter the OTP you received at  <span className="text-[1rem] text-black font-bold ">
-                          Example@gmail.com
+                          {userData?.email}
                       </span>
               </p>
              
@@ -45,7 +74,7 @@ const OTPModal = ({ setOTPDialoug }) => {
                   onClick={CompareOTP}
               >
                   {loading ? (
-                      <span className="animate-spin text-[2.5rem] text-white">
+                      <span className="animate-spin text-[1.5rem] text-white">
                           <LuLoader2 />
                       </span>
                   ) : (

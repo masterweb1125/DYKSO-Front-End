@@ -1,6 +1,6 @@
 /* eslint-disable jsx-a11y/anchor-is-valid */
 import { useState } from "react";
-import { CreatingUser, Login } from "../../redux/api";
+import { API_DOMAIN, CreatingUser, Login } from "../../redux/api";
 import { useDispatch } from "react-redux";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
@@ -10,13 +10,15 @@ import { toast } from "react-toastify";
 import OTP_Modal from "../../components/OTP_Modal";
 import OTPModal from "../../components/OTP_Modal";
 import { GenerateOTP } from "../../utils/generateRandomOtp";
+import { LuLoader2 } from "react-icons/lu";
 
 
 const Auth = () => {
   const dispatch = useDispatch();
   const [OTPDialoug, setOTPDialoug] = useState(false);
-  const [otp, setotp] = useState("");
-
+  const [customGeneratedOTP, setcustomGeneratedOTP] = useState();
+  const [userData, setuserData] = useState();
+  const [loading, setloading] = useState(false);
   const [loginCreds, setLoginCreds] = useState({
     email: "",
     password: "",
@@ -63,20 +65,35 @@ const Auth = () => {
       email: email,
       password: password
     }
-    const newOtp = GenerateOTP();
-console.log("new otp: ", newOtp)
 
-    setOTPDialoug(true);
-  //  try {
-  //    const res = await CreatingUser(dispatch, userInfo)
-  //    if (res === 200) {
-  //      toast.success("registration done successfully");
-  //      navigate("/");
-  //   }
-  //  } catch (error) {
-  //    toast.error("Something went wrong")
+    setloading(true);
 
-  //  }
+    const generateOTP = GenerateOTP();
+    
+    setcustomGeneratedOTP(generateOTP);
+    setuserData(userInfo);
+    try {
+      await API_DOMAIN.post(`/api/v1/auth/verifyemail`, {
+        email: userInfo.email,
+        OTP: generateOTP,
+      });
+      setOTPDialoug(true);
+      setloading(false);
+
+    } catch (error) {
+      toast.error("Email verification failed, try again!");
+      console.log("something went wrong, while verifying email: ", error);
+      setloading(false);
+
+    }
+
+    
+    
+    
+    
+    
+   
+   
 
     // signup logic here
   };
@@ -266,13 +283,22 @@ console.log("new otp: ", newOtp)
             <button
               type="submit"
             className=" w-full bg-[#03A89E] rounded text-white font-medium py-[18px]"
-          >
-            Create Account
+            >
+              {loading ? (
+                <span className="animate-spin flex justify-center items-center text-[1.6rem] text-white">
+                  <LuLoader2 />
+                </span>
+              ) : (
+                <span className="text-white text-[1rem] font-bold tracking-[0.16rem]">
+                    Create Account
+                </span>
+              )}
+           
             </button>
           </form>
         </div>
       </div>
-      {OTPDialoug && <OTPModal setOTPDialoug={setOTPDialoug } />}
+      {OTPDialoug && <OTPModal setOTPDialoug={setOTPDialoug} generatedOTP={customGeneratedOTP} userData={userData} />}
     </section>
 
   );
