@@ -12,10 +12,10 @@ const Header = () => {
     dispatch(LogOutUser())
   }
   return (
-    <div className="w-full h-[100px] px-[80px] flex justify-between items-center">
+    <div className="w-full h-[55px] px-[80px] flex justify-between items-center">
       <div className="flex items-center">
         <a href="/" className="cursor-pointer">
-          <img src={logo} alt="logo" className="w-[155px] h-[42px]" />
+          <img src={logo} alt="logo" className="w-[150px] h-[40px]" />
         </a>
         <a
           href="/"

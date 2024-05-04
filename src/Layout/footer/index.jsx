@@ -10,8 +10,8 @@ const Footer = () => {
 
 
   return (
-    <div className="w-full h-[330px] lg:h-[220px] px-[80px] flex flex-col justify-center bg-white">
-      <div className="flex flex-col lg:flex-row justify-between items-center">
+    <div className="w-full h-auto px-[80px] flex flex-col justify-center bg-white">
+      <div className=" hidden flex-col lg:flex-row justify-between items-center">
         {/* Logo */}
         <div className="flex items-center mb-4 lg:mb-0">
           <a href="/" className="cursor-pointer">
@@ -57,7 +57,7 @@ const Footer = () => {
           </a>
         </div>
       </div>
-      <hr className="border-t-2 border-gray-200 my-8" />
+      <hr className="border-t-2 border-gray-200 my-0" />
       <div className="flex flex-col lg:flex-row justify-between items-center">
         <div className="text-light-gray text-base mb-4 lg:mb-0">
           Copyright © 2023. All Rights Reserved

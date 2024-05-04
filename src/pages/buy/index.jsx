@@ -14,13 +14,13 @@ const Buy = () => {
   const [services, setservices] = useState([]);
   const [zipCode, addZipCode] = useState("");
   const { search } = useLocation();
+
   const queryParams = useMemo(() => new URLSearchParams(search), [search]);
   const user = useSelector((state) => state?.user?.userData);
 
   const FetchingServices = async (zip_code) => {
     try {
       const res = await API_DOMAIN.get(`/api/v1/service/${zip_code}/${user?._id}`);
-      console.log("API res is: ", res.data.data)
       if (res.status === 200) {
         setservices(res?.data?.data)
       }
@@ -42,6 +42,7 @@ const Buy = () => {
 
   useEffect(() => {
     getCurrentLocation();
+    console.log("zip code in main file: ", zipCode)
   }, [])
 
 
@@ -63,7 +64,7 @@ const Buy = () => {
 
   return (
     <div className="w-full bg-[#F6F6F6] h-4/5 flex flex-col items-center pt-12">
-      <SearchSection zipCode={zipCode} onFilterChange={handleFilterChange} currentPage="buy service" />
+      <SearchSection addZipCode={addZipCode} setservices={setservices} zipCode={zipCode}  onFilterChange={handleFilterChange} currentPage="buy-service" />
       {renderContent()}
     </div>
   );

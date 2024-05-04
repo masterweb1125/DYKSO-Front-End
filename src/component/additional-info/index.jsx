@@ -10,22 +10,21 @@ import axios from "axios";
 import { AddServiceData } from "../../redux/feature/reduxSlice";
 
 const AdditionalInfo = (props) => {
+  const { zipCode, serviceTitle, addserviceTitle } = props;
+
   const [additionalInfo, setAdditionalInfo] = useState("");
   const [laoding, setlaoding] = useState(false);
-  const [serviceTitle, setserviceTitle] = useState("");
   const navigate = useNavigate();
-  const { zipCode } = props;
   const { token, userData } = useSelector((state) => state?.user);
   const captureFile = useSelector((state) => state?.generalData?.captureData);
   const fileInputRef = useRef(null);
   const [uploadedFile, setUploadedFile] = useState(null);
 
-  
 
   useEffect(() => {
     if (captureFile) {
-       setUploadedFile(captureFile);
-    }
+      setUploadedFile(captureFile);
+    } 
   }, [])
   
 
@@ -77,17 +76,20 @@ const AdditionalInfo = (props) => {
 
   const PostHandler = async() => {
     
-    if (!additionalInfo || !uploadedFile || !serviceTitle) {
-      toast.error("Incomplete post detail")
+    if (!serviceTitle) {
+      toast.error("Service title is required")
       return;
     }
 
     try {
       setlaoding(true);
-    // Upload file to Cloudinary and get the URL
-    const cloudinaryURL = await uploadingFileCloudinary();
+      console.log("uplodaed file : ", uploadedFile?.name)
+      let cloudinaryURL = "";
+      if (uploadedFile?.name) {
+        cloudinaryURL = await uploadingFileCloudinary();
+      }
 
-      if (cloudinaryURL) {
+      
       const serviceData = {
       userId: userData?._id,
       posterName: userData?.name,
@@ -104,16 +106,18 @@ const AdditionalInfo = (props) => {
           return;
         }
         
-        console.log("after navigation to register page: ")
+      console.log("service data: ", serviceData)
+      
       // Call the API to post service data
       const res = await API_DOMAIN.post(`/api/v1/service`, serviceData);
       if (res.status === 200) {
         toast.success("service posted successfully")
         setAdditionalInfo("");
-        setserviceTitle("");
+        addserviceTitle("");
         setUploadedFile(null);
+        navigate("/");
       }
-      }
+      
       setlaoding(false);
     } catch (error) {
       console.log("something went wrong while saving service data: ", error);
@@ -126,15 +130,15 @@ const AdditionalInfo = (props) => {
   return (
     <section className="bg-white rounded-2xl md:rounded flex flex-col w-full max-w-[80%] mx-8 lg:mx-0 my-4 px-6 py-8 mb-20 ">
      
-      <h2 className="text-xl mb-4">Service Title</h2>
+      {/* <h2 className="text-xl mb-4">Service Title</h2>
       <input type="text"
         className="w-full mb-8 py-3 px-5 rounded border border-[#9B9B9B]"
         value={serviceTitle}
         placeholder="Enter service title"
         onChange={(e) => {
-          setserviceTitle(e.target.value);
+          addserviceTitle(e.target.value);
         }}
-      />
+      /> */}
 
       <h2 className="text-xl mb-4">Additional Information</h2>
       <textarea
@@ -165,8 +169,8 @@ const AdditionalInfo = (props) => {
         />
       </div>
 
-      {uploadedFile && (
-        <div className="flex items-center justify-between gap-3 max-w-[475px] py-3 px-5 bg-[#FBFBFB] border border-[#03A89E] rounded">
+      {uploadedFile?.name && (
+        <div className={` flex  items-center justify-between gap-3 max-w-[475px] py-3 px-5 bg-[#FBFBFB] border border-[#03A89E] rounded `}>
           <div className="flex gap-4 items-center">
             <img src={pdfIcon} alt="pdfIcon" />
             <p className="text-xl">{uploadedFile.name}</p>
