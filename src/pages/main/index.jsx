@@ -31,7 +31,7 @@ const Main = () => {
       <div className="flex flex-col gap-8 lg:flex-row lg:flex-wrap justify-center items-center w-full">
         {/* First Row of Cards */}
         <Link
-          className="lg:w-2/5 my-0 p-11 lg:mr-10 bg-white h-[360px] rounded-2xl flex justify-center items-center lg:text-4xl text-3xl text-light-black hover:text-white cursor-pointer text-center"
+          className="lg:w-2/5 my-0 p-11 lg:mr-10 bg-white h-[320px] rounded-2xl flex justify-center items-center lg:text-4xl text-3xl text-light-black hover:text-white cursor-pointer text-center"
           onMouseEnter={() => handleMouseEnter(0)}
           onMouseLeave={handleMouseLeave}
           style={{
@@ -48,7 +48,7 @@ const Main = () => {
           </span>
         </Link>
         <Link
-          className="lg:w-2/5 p-11 mb-8 lg:mb-0 bg-white h-[360px] rounded-2xl flex justify-center items-center lg:text-4xl text-3xl text-light-black hover:text-white cursor-pointer text-center"
+          className="lg:w-2/5 p-11 mb-8 lg:mb-0 bg-white h-[320px] rounded-2xl flex justify-center items-center lg:text-4xl text-3xl text-light-black hover:text-white cursor-pointer text-center"
           onMouseEnter={() => handleMouseEnter(1)}
           onMouseLeave={handleMouseLeave}
           style={{
@@ -60,14 +60,14 @@ const Main = () => {
           }}
           to="/sell"
         >
-          <span className="w-[360px] md:w-[420px] lg:w-[500px]">
+          <span className="w-[320px] md:w-[420px] lg:w-[500px]">
             I’m here to Sell/Request/Post something
           </span>
         </Link>
 
         {/* Second Row of Cards */}
         <Link
-          className="lg:w-2/5 lg:mr-10 mb-8 p-11 bg-white h-[360px] rounded-2xl flex justify-center items-center lg:text-4xl text-3xl text-light-black hover:text-white cursor-pointer text-center"
+          className="lg:w-2/5 lg:mr-10 mb-8 p-11 bg-white h-[320px] rounded-2xl flex justify-center items-center lg:text-4xl text-3xl text-light-black hover:text-white cursor-pointer text-center"
           onMouseEnter={() => handleMouseEnter(2)}
           onMouseLeave={handleMouseLeave}
           style={{
@@ -79,7 +79,7 @@ const Main = () => {
           }}
           to="/buy?servicesList=true"
         >
-          <span className="w-[360px] md:w-[420px] lg:w-[500px]">
+          <span className="w-[320px] md:w-[420px] lg:w-[500px]">
             Not ready for anything just yet? Click here to see what others are
             selling or requesting or have posted in your area
           </span>
@@ -87,7 +87,7 @@ const Main = () => {
         
         <div
           onClick={() => CaptureRef.current.click()}
-          className="lg:w-2/5 p-11 mb-8 bg-white h-[360px] rounded-2xl flex justify-center items-center lg:text-4xl text-3xl text-light-black hover:text-white cursor-pointer text-center"
+          className="lg:w-2/5 p-11 mb-8 bg-white h-[320px] rounded-2xl flex justify-center items-center lg:text-4xl text-3xl text-light-black hover:text-white cursor-pointer text-center"
           onMouseEnter={() => handleMouseEnter(3)}
           onMouseLeave={handleMouseLeave}
           style={{
@@ -99,7 +99,7 @@ const Main = () => {
           }}
           // to="/sell"
         >
-          <div className="flex flex-col justify-center items-center w-[360px] md:w-[420px] lg:w-[500px]">
+          <div className="flex flex-col justify-center items-center w-[320px] md:w-[420px] lg:w-[500px]">
             <img src={Camera} alt="cam" className="mb-3 w-[120px] h-[120px]" />
             Capture and post
           </div>

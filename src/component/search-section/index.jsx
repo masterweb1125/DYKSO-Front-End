@@ -18,7 +18,7 @@ const SearchSection = ({ zipCode, onFilterChange, currentPage, addserviceTitle, 
   const handleZipCode = async (updatedZipCode) => {
     if (currentPage === "buy-service") {
       try {
-        const res = await API_DOMAIN.get(`/api/v1/service/${updatedZipCode}/${user?._id}`);
+        const res = await API_DOMAIN.get(`/api/v1/service/allservices/${updatedZipCode}/${user?._id}`);
         if (res.status === 200) {
           setservices(res?.data?.data)
         }
@@ -40,7 +40,7 @@ const SearchSection = ({ zipCode, onFilterChange, currentPage, addserviceTitle, 
     if (currentPage === "sell-service") {
       navigate("/sell");
     } else if (currentPage === "buy-service")  {
-      navigate("/buy?servicesList=true");
+      window.location.reload();
 
     }
   }
@@ -90,6 +90,7 @@ const SearchSection = ({ zipCode, onFilterChange, currentPage, addserviceTitle, 
                 <input
                   type="search"
                   onChange={onFilterChange}
+                
                   id="default-search"
                   className="block w-full p-4 ps-10 text-sm text-[#8C8C8C] border border-[#A9A9A9] rounded bg-gray-50 focus:ring-custom-green focus:border-custom-green placeholder-[20px] sm:placeholder-[16px]"
                   placeholder={placeholder}

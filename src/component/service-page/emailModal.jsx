@@ -1,21 +1,51 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { IoMdClose } from "react-icons/io";
 import { useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
+import { toast } from 'react-toastify';
+import { API_DOMAIN } from '../../redux/api';
 
 const EmailModalComponent = (props) => {
     const { setemailModal, service } = props;
     const token = useSelector((state) => state?.user?.token);
+    const user = useSelector((state) => state?.user?.userData);
+    console.log("user email: ", user?.email)
+    const [subject, setsubject] = useState("");
+    const [message, setmessage] = useState("");
     const navigate = useNavigate();
 
     const handleEmailModal = () => {
         setemailModal(prev => !prev);
     }
 
-    const sendEmailHandler = () => {
+    const sendEmailHandler = async() => {
+        console.log("subject: " + subject);
+        console.log("message: " + message);
         if (!token) {
             navigate("/register");
             return;
+        }
+
+        if (!subject || !message) {
+            toast.error("Incomplete form to send email");
+            return;
+        }
+        // const { sender, reciever, subject, body } = req.body;
+        try {
+            const res = await API_DOMAIN.post(`/api/v1/service/send-customer-email`, {
+                sender: user?.email,
+                reciever: service.posterEmail,
+                subject: subject,
+                body: message,
+            });
+            if (res.status === 200) {
+                toast.success("Email sent successfully");
+                handleEmailModal();
+            }
+            
+        } catch (error) {
+            console.log("sending customer email failed: ", error);
+            toast.error("Email sending failed, try again");
         }
     }
 
@@ -36,12 +66,12 @@ const EmailModalComponent = (props) => {
                   <form action="" className='flex flex-col gap-3'>
                       <div className="field flex flex-col gap-1">
                       <label htmlFor="subject">Subject</label>
-                          <input type="text" className='py-1 px-2 rounded-sm border border-[#A9A9A9] ' name="" id="subject" />
+                          <input type="text" onChange={(e)=> setsubject(e.target.value)} className='py-1 px-2 rounded-sm border border-[#A9A9A9]' name="" id="subject" />
                       </div>
 
                       <div className="field flex flex-col gap-1">
                       <label htmlFor="message">Message</label>
-                          <textarea name="" className='rounded-sm p-2 border border-[#A9A9A9]' id="message" cols={30} rows={6}></textarea>
+                          <textarea name="" onChange={(e)=>setmessage(e.target.value)} className='rounded-sm p-2 border border-[#A9A9A9]' id="message" cols={30} rows={6}></textarea>
                       </div>
                   </form>
                   {/* btns */}

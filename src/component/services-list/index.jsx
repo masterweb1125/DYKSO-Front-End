@@ -10,7 +10,7 @@ const ServicesList = ({ filter, servicesData }) => {
   }, [servicesData]);
 
   const filteredData = servicesData?.filter(data =>
-    data.service_info.toLowerCase().includes(filter?.toLowerCase())
+    data.serviceTitle.toLowerCase().includes(filter?.toLowerCase())
   );
 
   return (

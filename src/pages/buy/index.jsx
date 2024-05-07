@@ -20,15 +20,22 @@ const Buy = () => {
 
   const FetchingServices = async (zip_code) => {
     try {
-      const res = await API_DOMAIN.get(`/api/v1/service/${zip_code}/${user?._id}`);
+      const res = await API_DOMAIN.get(`/api/v1/service/allservices/${user?._id}`);
       if (res.status === 200) {
-        setservices(res?.data?.data)
+        // Sort services based on proximity to the passed zip code
+        const sortedServices = res?.data?.data.sort((a, b) => {
+          // Calculate absolute differences between each service's zip code and the passed zip code
+          const distanceA = Math.abs(parseInt(a.zipCode) - parseInt(zip_code));
+          const distanceB = Math.abs(parseInt(b.zipCode) - parseInt(zip_code));
+          return distanceA - distanceB;
+        });
+        setservices(sortedServices);
       }
     } catch (error) {
       console.log("something went wrong while fetching services data: ", error);
       toast.error("Something went wrong");
-
     }
+  
   }
 
   const getCurrentLocation =  async() => {
@@ -51,16 +58,16 @@ const Buy = () => {
   };
 
   const renderContent = () => {
-    if (queryParams.get("servicesList")) {
-      return <ServicesList filter={filter} servicesData={services} />;
-    } else if (queryParams.get("serviceName")) {
+    if (queryParams.get("serviceName")) {
       return <ServiceName />;
     } else {
-      return <NothingSearched />;
+      // return <NothingSearched />;
+      return <ServicesList filter={filter} servicesData={services} />;
+
     }
   };
 
-
+console.log("queryParams: " + queryParams)
 
   return (
     <div className="w-full bg-[#F6F6F6] h-4/5 flex flex-col items-center pt-12">
