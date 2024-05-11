@@ -31,7 +31,7 @@ const Main = () => {
       <div className="flex flex-col gap-8 lg:flex-row lg:flex-wrap justify-center items-center w-full">
         {/* First Row of Cards */}
         <Link
-          className="lg:w-2/5 my-0 p-11 lg:mr-10 bg-white h-[320px] rounded-2xl flex justify-center items-center lg:text-4xl text-3xl text-light-black hover:text-white cursor-pointer text-center"
+          className="lg:w-2/5 my-0 p-11 lg:mr-10 bg-white h-[270px] rounded-2xl flex justify-center items-center lg:text-4xl text-3xl text-light-black hover:text-white cursor-pointer text-center"
           onMouseEnter={() => handleMouseEnter(0)}
           onMouseLeave={handleMouseLeave}
           style={{
@@ -48,7 +48,7 @@ const Main = () => {
           </span>
         </Link>
         <Link
-          className="lg:w-2/5 p-11 mb-8 lg:mb-0 bg-white h-[320px] rounded-2xl flex justify-center items-center lg:text-4xl text-3xl text-light-black hover:text-white cursor-pointer text-center"
+          className="lg:w-2/5 p-11 mb-8 lg:mb-0 bg-white h-[270px] rounded-2xl flex justify-center items-center lg:text-4xl text-3xl text-light-black hover:text-white cursor-pointer text-center"
           onMouseEnter={() => handleMouseEnter(1)}
           onMouseLeave={handleMouseLeave}
           style={{
@@ -67,7 +67,7 @@ const Main = () => {
 
         {/* Second Row of Cards */}
         <Link
-          className="lg:w-2/5 lg:mr-10 mb-8 p-11 bg-white h-[320px] rounded-2xl flex justify-center items-center lg:text-4xl text-3xl text-light-black hover:text-white cursor-pointer text-center"
+          className="lg:w-2/5 lg:mr-10 mb-8 p-11 bg-white h-[270px] rounded-2xl flex justify-center items-center lg:text-4xl text-3xl text-light-black hover:text-white cursor-pointer text-center"
           onMouseEnter={() => handleMouseEnter(2)}
           onMouseLeave={handleMouseLeave}
           style={{
@@ -87,7 +87,7 @@ const Main = () => {
         
         <div
           onClick={() => CaptureRef.current.click()}
-          className="lg:w-2/5 p-11 mb-8 bg-white h-[320px] rounded-2xl flex justify-center items-center lg:text-4xl text-3xl text-light-black hover:text-white cursor-pointer text-center"
+          className="lg:w-2/5 p-11 mb-8 bg-white h-[270px] rounded-2xl flex justify-center items-center lg:text-4xl text-3xl text-light-black hover:text-white cursor-pointer text-center"
           onMouseEnter={() => handleMouseEnter(3)}
           onMouseLeave={handleMouseLeave}
           style={{

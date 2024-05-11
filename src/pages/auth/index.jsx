@@ -1,7 +1,7 @@
 /* eslint-disable jsx-a11y/anchor-is-valid */
 import { useState } from "react";
 import { API_DOMAIN, CreatingUser, Login } from "../../redux/api";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { SignUp_validate } from "../../model/signUpSchema";
@@ -23,6 +23,7 @@ const Auth = () => {
     email: "",
     password: "",
   });
+  const generalData = useSelector((state) => state?.generalData?.serviceData);
   
   const navigate = useNavigate();
 
@@ -39,14 +40,21 @@ const Auth = () => {
 
   const handleLogin = async(e) => {
     e.preventDefault();
+   
     if (loginCreds.email && loginCreds.password) {
       try {
         const res = await Login(dispatch, loginCreds)
         if (res === 200) {
           toast.success("Login successfully")
-          navigate("/");
+          if (generalData?.serviceTitle) {
+            navigate("/sell")
+          } else {
+            navigate("/");
+          }
         } else if (res?.status === 400) {
           toast.error("Incorrect login credentials")
+        } else if (res?.status === 404) {
+          toast.error("User not found")
         }
       } catch (error) {
         toast.error("Something went wrong")

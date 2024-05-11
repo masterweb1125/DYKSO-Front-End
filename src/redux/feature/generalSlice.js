@@ -17,7 +17,7 @@ export const GeneralSlice = createSlice({
 
     AddServiceData: (state, action) => {
       state.serviceData = action.payload;
-      console.log("action.payload service data: ", action.payload);
+      console.log("action.payload general service data: ", action.payload);
     },
 
    

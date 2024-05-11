@@ -77,6 +77,7 @@ const SearchSection = ({ zipCode, onFilterChange, currentPage, addserviceTitle, 
                       toast.error("Character limit exceeded (Max: 140)");
                     }
                   }}
+                  defaultValue={serviceTitle || ""}
                   id="default-search"
                   className={`block w-full p-4 ps-10 text-sm text-[#8C8C8C] border ${serviceTitle.length >= 140 ? "border-red-600" : "border-[#A9A9A9]"}  rounded bg-gray-50 ${serviceTitle.length >= 140 ? "focus:ring-custom-green focus:border-custom-green" : "focus:ring-red-600 focus:border-red-600"}   placeholder-[20px] sm:placeholder-[16px]`}
                   placeholder={placeholder}

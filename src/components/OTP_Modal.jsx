@@ -3,7 +3,7 @@ import { LuLoader2 } from 'react-icons/lu'
 import Testotp from './checkingOtp';
 import { IoClose } from "react-icons/io5";
 import { toast } from 'react-toastify';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { CreatingUser } from '../redux/api';
 
@@ -12,7 +12,7 @@ const OTPModal = ({ setOTPDialoug, generatedOTP, userData }) => {
     const [loading, setloading] = useState(false);
     const dispatch = useDispatch();
     const navigate = useNavigate();
-
+    const generalData = useSelector((state) => state?.generalData?.serviceData);
 
     // otp modal close
     const CloseOTPModel = () => {
@@ -28,7 +28,11 @@ const OTPModal = ({ setOTPDialoug, generatedOTP, userData }) => {
                 if (res === 200) {
                     toast.success("registration done successfully");
                     setOTPDialoug((prev) => !prev)
-                    navigate("/");
+                    if (generalData?.serviceTitle) {
+                        navigate("/sell")
+                    } else {
+                        navigate("/");
+                    }
                 }
                 setloading(false);
             } catch (error) {

@@ -7,7 +7,8 @@ import { API_DOMAIN } from "../../redux/api";
 import { AiOutlineLoading3Quarters } from "react-icons/ai";
 import { toast } from "react-toastify";
 import axios from "axios";
-import { AddServiceData } from "../../redux/feature/reduxSlice";
+import { AddCaptureData, AddServiceData } from "../../redux/feature/generalSlice";
+// import { AddServiceData } from "../../redux/feature/reduxSlice";
 
 const AdditionalInfo = (props) => {
   const { zipCode, serviceTitle, addserviceTitle } = props;
@@ -17,14 +18,34 @@ const AdditionalInfo = (props) => {
   const navigate = useNavigate();
   const { token, userData } = useSelector((state) => state?.user);
   const captureFile = useSelector((state) => state?.generalData?.captureData);
+  const generalData = useSelector((state) => state?.generalData?.serviceData);
   const fileInputRef = useRef(null);
   const [uploadedFile, setUploadedFile] = useState(null);
 
+  // --------- retieving already filled data ------
+  const FilledData = async () => {
+    // const generalData = useSelector((state) => state?.generalData?.serviceData);
+    console.log('generalData', generalData)
+    if (generalData.serviceTitle) {
+      console.log("inside if-condition and value: ", generalData.serviceTitle )
+      addserviceTitle(generalData.serviceTitle)
+      setAdditionalInfo(generalData.service_info)
 
+    }
+
+  
+  }
   useEffect(() => {
+
     if (captureFile) {
       setUploadedFile(captureFile);
     } 
+    FilledData();
+    console.log("after if condition")
+    // if (generalData?.serviceTitle) {
+    //   setAdditionalInfo(generalData?.service_info)
+    //   addserviceTitle(generalData?.serviceTitle)
+    // }
   }, [])
   
 
@@ -59,7 +80,7 @@ const AdditionalInfo = (props) => {
         data.append("cloud_name", "bangash-cloud");
 
         const uploadRes = await axios.post(
-          "https://api.cloudinary.com/v1_1/bangash-cloud/image/upload",
+          "https://api.cloudinary.com/v1_1/bangash-cloud/raw/upload",
           data
         );
         var { url } = uploadRes.data;
@@ -94,26 +115,28 @@ const AdditionalInfo = (props) => {
       userId: userData?._id,
       posterName: userData?.name,
       posterEmail: userData?.email,
-      serviceTitle: serviceTitle,
+        serviceTitle: serviceTitle,
       zipCode: zipCode,
-      service_info: additionalInfo,
+        service_info: additionalInfo,
       attachment: cloudinaryURL
     }
     
         if (!token) {
           dispatch(AddServiceData(serviceData))
+          dispatch(AddCaptureData(uploadedFile))
           navigate("/register");
           return;
         }
-        
-      console.log("service data: ", serviceData)
-      
+              
+
       // Call the API to post service data
       const res = await API_DOMAIN.post(`/api/v1/service`, serviceData);
       if (res.status === 200) {
         toast.success("service posted successfully")
         setAdditionalInfo("");
         addserviceTitle("");
+        dispatch(AddServiceData(""))
+        dispatch(AddCaptureData(""))
         setUploadedFile(null);
         navigate("/");
       }
@@ -162,7 +185,7 @@ const AdditionalInfo = (props) => {
         <p className="text-lg ">Drag & Drop or Browse</p>
         <input
           type="file"
-          accept="image/*"
+          // accept="image/*"
           ref={fileInputRef}
           style={{ display: "none" }}
           onChange={handleFileChange}
