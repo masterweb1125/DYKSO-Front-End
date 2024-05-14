@@ -13,6 +13,7 @@ const Buy = () => {
   const [filter, setFilter] = useState("");
   const [services, setservices] = useState([]);
   const [zipCode, addZipCode] = useState("");
+  const [followUpList, setfollowupList] = useState(false);
   const { search } = useLocation();
 
   const queryParams = useMemo(() => new URLSearchParams(search), [search]);
@@ -62,7 +63,7 @@ const Buy = () => {
       return <ServiceName />;
     } else {
       // return <NothingSearched />;
-      return <ServicesList filter={filter} servicesData={services} />;
+      return <ServicesList IsfollowUpList={followUpList} filter={filter} servicesData={services} />;
 
     }
   };
@@ -71,7 +72,7 @@ console.log("queryParams: " + queryParams)
 
   return (
     <div className="w-full bg-[#F6F6F6] h-4/5 flex flex-col items-center pt-12">
-      <SearchSection addZipCode={addZipCode} setservices={setservices} zipCode={zipCode}  onFilterChange={handleFilterChange} currentPage="buy-service" />
+      <SearchSection followUpList={followUpList} setfollowupList={setfollowupList} addZipCode={addZipCode} setservices={setservices} zipCode={zipCode}  onFilterChange={handleFilterChange} currentPage="buy-service" />
       {renderContent()}
     </div>
   );

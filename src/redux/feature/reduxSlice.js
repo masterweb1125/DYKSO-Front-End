@@ -25,6 +25,10 @@ export const UserInfo = createSlice({
       state.token = "";
     },
 
+    setPostFollowUp: (state, action) => {
+console.log("followup action.payload: ", action.payload);
+state.userData = action.payload;
+    },
 
     // AddServiceData: (state, action) => {
     //   state.serviceData = action.payload;
@@ -43,7 +47,7 @@ export const {
   ApiRequestFailed,
   MakingApiRequest,
   LogOutUser,
-  // AddServiceData,
+  setPostFollowUp,
 } = UserInfo.actions;
 
 export default UserInfo.reducer;

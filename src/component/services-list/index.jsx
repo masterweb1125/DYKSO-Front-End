@@ -1,9 +1,10 @@
 import React, { useState, useEffect } from "react";
 import ResultsRow from "./row/index";
+import { useSelector } from "react-redux";
 
-const ServicesList = ({ filter, servicesData }) => {
+const ServicesList = ({ filter, servicesData, IsfollowUpList }) => {
   const [isLoading, setIsLoading] = useState(true);
-
+  const user = useSelector((state) => state?.user?.userData);
   // Update loading state when servicesData changes
   useEffect(() => {
     setIsLoading(servicesData?.length === undefined);
@@ -20,10 +21,17 @@ const ServicesList = ({ filter, servicesData }) => {
       ) : (
         <>
           {filteredData?.map((data, index) => (
-            <React.Fragment key={index}>
-              <ResultsRow service_id={data?._id} bidTitle={data.serviceTitle} key={index + "-bid-title"} />
-              {index !== filteredData?.length - 1 && <hr className="my-5" />}{" "}
-            </React.Fragment>
+              <> 
+              {IsfollowUpList && user?.follow_up?.includes(data?._id) && ( <><ResultsRow service_id={data?._id} bidTitle={data.serviceTitle} IsfollowUpList={IsfollowUpList} key={index + "-bid-title"} /><React.Fragment key={index}>
+              {index !== filteredData?.length - 1 && <hr className="my-5" />}
+            </React.Fragment></>
+            ) }
+            
+           {  !IsfollowUpList && (<><ResultsRow service_id={data?._id} bidTitle={data.serviceTitle} IsfollowUpList={IsfollowUpList} key={index + "-bid-title"} /><React.Fragment key={index}>
+              {index !== filteredData?.length - 1 && <hr className="my-5" />}
+            </React.Fragment></>
+            ) }
+            </>
           ))}
         </>
       )}

@@ -6,14 +6,17 @@ import {Link, useNavigate} from "react-router-dom";
 import { toast } from "react-toastify";
 import { useSelector } from "react-redux";
 import { API_DOMAIN } from "../../redux/api";
+import { CiBookmarkMinus } from "react-icons/ci";
 
-const SearchSection = ({ zipCode, onFilterChange, currentPage, addserviceTitle, serviceTitle, addZipCode, setservices }) => {
+const SearchSection = ({ zipCode, followUpList, setfollowupList, onFilterChange, currentPage, addserviceTitle, serviceTitle, addZipCode, setservices }) => {
   const [placeholder, setPlaceholder] = useState();
   const user = useSelector((state) => state?.user?.userData);
   const navigate = useNavigate();
 
   
-
+  const handleFollowUp = () => {
+    setfollowupList((prev)=> !prev)
+  }
   
   const handleZipCode = async (updatedZipCode) => {
     if (currentPage === "buy-service") {
@@ -124,6 +127,16 @@ const SearchSection = ({ zipCode, onFilterChange, currentPage, addserviceTitle, 
           <img src={GpsIcon} alt="gps" className="mr-3" />
           Find my Location
         </button>
+
+        {/* ---- follow up button ---- */}
+        <button onClick={handleFollowUp}
+          className={`ml-3 border-none bg-yellow-500 text-white text-xs rounded gap-2 flex justify-center items-center w-[100%] h-[54px] lg:w-[13%] mt-4 lg:mt-0  ${currentPage === "sell-service" ? "hidden" : "flex"}`}
+        >
+          <span className="text-[1.2rem] font-bold text-white"><CiBookmarkMinus /></span>
+          Follow-up
+        </button>
+
+
       </div>
     </section>
   );
