@@ -43,6 +43,7 @@ const ResultsRow = (props) => {
         console.log("something went wrong ", error);
         toast.error("Something went wrong!")
       }
+      
     }
   }
 

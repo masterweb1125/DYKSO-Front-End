@@ -8,7 +8,7 @@ import { useSelector } from "react-redux";
 import { API_DOMAIN } from "../../redux/api";
 import { CiBookmarkMinus } from "react-icons/ci";
 
-const SearchSection = ({ zipCode, followUpList, setfollowupList, onFilterChange, currentPage, addserviceTitle, serviceTitle, addZipCode, setservices }) => {
+const SearchSection = ({ zipCode, followUpList, setfollowupList, onFilterChange, currentPage, addserviceTitle, serviceTitle, addZipCode, setservices, FetchingServices }) => {
   const [placeholder, setPlaceholder] = useState();
   const user = useSelector((state) => state?.user?.userData);
   const navigate = useNavigate();
@@ -20,16 +20,7 @@ const SearchSection = ({ zipCode, followUpList, setfollowupList, onFilterChange,
   
   const handleZipCode = async (updatedZipCode) => {
     if (currentPage === "buy-service") {
-      try {
-        const res = await API_DOMAIN.get(`/api/v1/service/allservices/${updatedZipCode}/${user?._id}`);
-        if (res.status === 200) {
-          setservices(res?.data?.data)
-        }
-      } catch (error) {
-        console.log("something went wrong while fetching services data: ", error);
-        toast.error("Something went wrong");
-
-      }
+      FetchingServices(updatedZipCode);
     }
 
     else if (currentPage === "sell-service") {
@@ -129,12 +120,15 @@ const SearchSection = ({ zipCode, followUpList, setfollowupList, onFilterChange,
         </button>
 
         {/* ---- follow up button ---- */}
-        <button onClick={handleFollowUp}
-          className={`ml-3 border-none bg-yellow-500 text-white text-xs rounded gap-2 flex justify-center items-center w-[100%] h-[54px] lg:w-[13%] mt-4 lg:mt-0  ${currentPage === "sell-service" ? "hidden" : "flex"}`}
-        >
-          <span className="text-[1.2rem] font-bold text-white"><CiBookmarkMinus /></span>
-          Follow-up
-        </button>
+        {user?._id && (
+          <button onClick={handleFollowUp}
+            className={`ml-3 border-none bg-yellow-500 hover:bg-yellow-600  text-white text-xs rounded gap-2 flex justify-center items-center w-[100%] h-[54px] lg:w-[18%] mt-4 lg:mt-0  ${currentPage === "sell-service" ? "hidden" : "flex"}`}
+          >
+            <span className="text-[1.2rem] font-bold text-white"><CiBookmarkMinus /></span>
+            Posts Marked for Follow-up
+          </button>
+        )}
+        
 
 
       </div>

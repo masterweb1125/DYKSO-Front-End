@@ -32,6 +32,7 @@ const ServiceName = () => {
     FetchingServiceData();  
   }, [])
   
+  
   return (
     <>
       <div className="bg-white rounded-2xl md:rounded flex flex-col justify-center items-between w-full max-w-[80%] h-[auto] mx-8 min-[1050px]:mx-0 my-4 px-6 py-8 mb-20">

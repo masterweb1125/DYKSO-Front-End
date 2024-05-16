@@ -72,7 +72,7 @@ console.log("queryParams: " + queryParams)
 
   return (
     <div className="w-full bg-[#F6F6F6] h-4/5 flex flex-col items-center pt-12">
-      <SearchSection followUpList={followUpList} setfollowupList={setfollowupList} addZipCode={addZipCode} setservices={setservices} zipCode={zipCode}  onFilterChange={handleFilterChange} currentPage="buy-service" />
+      <SearchSection followUpList={followUpList} setfollowupList={setfollowupList} addZipCode={addZipCode} setservices={setservices} zipCode={zipCode} onFilterChange={handleFilterChange} FetchingServices={FetchingServices} currentPage="buy-service" />
       {renderContent()}
     </div>
   );

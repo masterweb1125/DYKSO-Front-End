@@ -24,6 +24,7 @@ const Auth = () => {
     password: "",
   });
   const generalData = useSelector((state) => state?.generalData?.serviceData);
+  const followUp = useSelector((state) => state?.generalData?.markFollowUp);
   
   const navigate = useNavigate();
 
@@ -41,6 +42,9 @@ const Auth = () => {
   const handleLogin = async(e) => {
     e.preventDefault();
    
+    // navigate(-1)
+    // return;
+
     if (loginCreds.email && loginCreds.password) {
       try {
         const res = await Login(dispatch, loginCreds)
@@ -48,6 +52,8 @@ const Auth = () => {
           toast.success("Login successfully")
           if (generalData?.serviceTitle) {
             navigate("/sell")
+          } else if (followUp !== "false") {
+            navigate(-1)
           } else {
             navigate("/");
           }
